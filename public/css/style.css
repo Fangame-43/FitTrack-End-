@@ -61,3 +61,39 @@
     background: #fff3cd;
     color: #856404;
 }
+.logros-resumen {
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.logros-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.logro-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.logro-icono {
+  font-size: 2rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.logro-card.obtenido .logro-icono { color: #f0a500; }
+.logro-card.bloqueado             { opacity: 0.5; filter: grayscale(1); }
+
+.logro-info h3 { margin: 0 0 0.25rem; font-size: 1rem; }
+.logro-info p  { margin: 0 0 0.5rem; font-size: 0.875rem; color: #555; }
+
+.fila-propia { background: #eef4ff; font-weight: 500; }
+
+.tabla { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+.tabla th, .tabla td { padding: 0.65rem 0.75rem; text-align: left; border-bottom: 1px solid #e0e0e0; }
+.tabla th { background: #f5f5f5; font-weight: 500; }
+.tabla tbody tr:hover { background: #fafafa; }

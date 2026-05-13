@@ -1,0 +1,29 @@
+<h2>Logros</h2>
+<p class="logros-resumen">
+  <%= logros.filter(l => l.obtenido).length %> de <%= logros.length %> desbloqueados
+</p>
+
+<div class="logros-grid">
+  <% logros.forEach(l => { %>
+    <div class="card logro-card <%= l.obtenido ? 'obtenido' : 'bloqueado' %>">
+      <div class="logro-icono">
+        <% if (l.obtenido) { %>
+          <i class="ti ti-trophy"></i>
+        <% } else { %>
+          <i class="ti ti-lock"></i>
+        <% } %>
+      </div>
+      <div class="logro-info">
+        <h3><%= l.nombre %></h3>
+        <p><%= l.descripcion %></p>
+        <% if (l.obtenido) { %>
+          <span class="badge badge-success">
+            Obtenido <%= new Date(l.fecha_obtencion).toLocaleDateString('es-DO') %>
+          </span>
+        <% } else { %>
+          <span class="badge badge-pending">Bloqueado</span>
+        <% } %>
+      </div>
+    </div>
+  <% }) %>
+</div>
