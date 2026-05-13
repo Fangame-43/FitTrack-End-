@@ -1,12 +1,12 @@
+<%- include('../partials/header') %>
 <h2>Editar actividad</h2>
 <form action="/actividades/<%= actividad.id %>/editar" method="POST">
     <div class="form-group">
         <label>Tipo</label>
         <select name="tipo" required>
-            <% ['correr','ciclismo','natacion','caminata','gimnasio','otro'].forEach(t=> { %>
-                <option value="<%= t %>" <%=actividad.tipo===t ? 'selected' : '' %>><%= t %>
-                </option>
-                <% }) %>
+            <% ['correr','ciclismo','natacion','caminata','gimnasio','otro'].forEach(t => { %>
+                <option value="<%= t %>" <%= actividad.tipo === t ? 'selected' : '' %>><%= t %></option>
+            <% }) %>
         </select>
     </div>
     <div class="form-group">
@@ -32,3 +32,4 @@
     <button type="submit">Actualizar</button>
     <a href="/actividades">Cancelar</a>
 </form>
+<%- include('../partials/footer') %>

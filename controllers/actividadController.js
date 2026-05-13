@@ -1,14 +1,15 @@
 const service = require('../services/actividadService');
 
+
 exports.index = async (req, res, next) => {
     try {
         const actividades = await service.listar(req.usuario.id);
-        res.render('actividades/index', { usuario: req.usuario, actividades });
+        res.render('actividades/index', { usuario: req.usuario, actividades, page: 'actividades' });
     } catch (err) { next(err); }
 };
 
 exports.nueva = (req, res) =>
-    res.render('actividades/nueva', { usuario: req.usuario });
+    res.render('actividades/nueva', { usuario: req.usuario, page: 'actividades' });
 
 exports.crear = async (req, res, next) => {
     try {
@@ -22,7 +23,7 @@ exports.detalle = async (req, res, next) => {
     try {
         const actividad = await service.obtener(req.params.id, req.usuario.id);
         if (!actividad) return res.redirect('/actividades');
-        res.render('actividades/detalle', { usuario: req.usuario, actividad });
+        res.render('actividades/detalle', { usuario: req.usuario, actividad, page: 'actividades' });
     } catch (err) { next(err); }
 };
 
@@ -30,7 +31,7 @@ exports.editar = async (req, res, next) => {
     try {
         const actividad = await service.obtener(req.params.id, req.usuario.id);
         if (!actividad) return res.redirect('/actividades');
-        res.render('actividades/editar', { usuario: req.usuario, actividad });
+        res.render('actividades/editar', { usuario: req.usuario, actividad, page: 'actividades' });
     } catch (err) { next(err); }
 };
 

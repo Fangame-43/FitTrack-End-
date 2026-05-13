@@ -1,17 +1,24 @@
-<h2>Crear cuenta</h2>
-<form action="/auth/registro" method="POST">
-    <div class="form-group">
-        <label>Nombre</label>
-        <input type="text" name="nombre" required>
+<%- include('../partials/header') %>
+<div class="auth-page">
+    <div class="auth-card">
+        <h2>Crear cuenta</h2>
+        <p>Empieza a registrar tu progreso hoy</p>
+        <form action="/auth/registro" method="POST">
+            <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" name="nombre" required autocomplete="name">
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" required autocomplete="email">
+            </div>
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" name="password" required minlength="6" autocomplete="new-password">
+            </div>
+            <button type="submit" class="btn btn-red">Crear cuenta</button>
+        </form>
+        <p class="auth-footer">¿Ya tienes cuenta? <a href="/auth/login">Inicia sesión</a></p>
     </div>
-    <div class="form-group">
-        <label>Email</label>
-        <input type="email" name="email" required>
-    </div>
-    <div class="form-group">
-        <label>Contraseña</label>
-        <input type="password" name="password" required minlength="6">
-    </div>
-    <button type="submit">Registrarse</button>
-    <p>¿Ya tienes cuenta? <a href="/auth/login">Inicia sesión</a></p>
-</form>
+</div>
+<%- include('../partials/footer') %>

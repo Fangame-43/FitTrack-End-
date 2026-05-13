@@ -1,34 +1,42 @@
-<h2>Ranking global</h2>
+<%- include('../partials/header') %>
+<div class="page-header">
+  <div>
+    <h2>Ranking</h2>
+    <p>Top 20 usuarios más activos</p>
+  </div>
+</div>
 
-<table class="tabla">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Usuario</th>
-      <th>Sesiones</th>
-      <th>Distancia (km)</th>
-      <th>Calorías</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% ranking.forEach((u, i) => { %>
-      <tr class="<%= u.id === usuario.id ? 'fila-propia' : '' %>">
-        <td>
-          <% if (i === 0) { %>
-            <i class="ti ti-medal" style="color:#f0a500"></i>
-          <% } else if (i === 1) { %>
-            <i class="ti ti-medal" style="color:#aaa"></i>
-          <% } else if (i === 2) { %>
-            <i class="ti ti-medal" style="color:#cd7f32"></i>
-          <% } else { %>
-            <%= i + 1 %>
-          <% } %>
-        </td>
-        <td><%= u.nombre %> <%= u.id === usuario.id ? '(tú)' : '' %></td>
-        <td><%= u.dataValues.total_sesiones || 0 %></td>
-        <td><%= parseFloat(u.dataValues.total_distancia || 0).toFixed(2) %></td>
-        <td><%= u.dataValues.total_calorias || 0 %></td>
+<div class="ranking-table">
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Usuario</th>
+        <th>Sesiones</th>
+        <th>Distancia</th>
+        <th>Calorías</th>
       </tr>
-    <% }) %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% ranking.forEach((u, i) => { %>
+        <tr class="<%= u.id === usuario.id ? 'fila-propia' : '' %>">
+          <td>
+            <span class="rank-num <%= i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '' %>">
+              <%= i === 0 ? '1' : i === 1 ? '2' : i === 2 ? '3' : i + 1 %>
+            </span>
+          </td>
+          <td>
+            <span class="rank-user">
+              <%= u.nombre %>
+              <% if (u.id === usuario.id) { %><span class="you">tú</span><% } %>
+            </span>
+          </td>
+          <td><%= u.dataValues.total_sesiones || 0 %></td>
+          <td><%= parseFloat(u.dataValues.total_distancia || 0).toFixed(1) %> km</td>
+          <td><%= parseInt(u.dataValues.total_calorias || 0).toLocaleString() %> kcal</td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<%- include('../partials/footer') %>

@@ -1,24 +1,27 @@
-<h2>Logros</h2>
-<p class="logros-resumen">
-  <%= logros.filter(l => l.obtenido).length %> de <%= logros.length %> desbloqueados
-</p>
+<%- include('../partials/header') %>
+<div class="page-header logros-header">
+  <div>
+    <h2>Logros</h2>
+    <p>Desbloquea badges completando objetivos</p>
+  </div>
+  <span class="logros-progress-ring">
+    <%= logros.filter(l => l.obtenido).length %> / <%= logros.length %>
+  </span>
+</div>
 
 <div class="logros-grid">
   <% logros.forEach(l => { %>
-    <div class="card logro-card <%= l.obtenido ? 'obtenido' : 'bloqueado' %>">
-      <div class="logro-icono">
-        <% if (l.obtenido) { %>
-          <i class="ti ti-trophy"></i>
-        <% } else { %>
-          <i class="ti ti-lock"></i>
-        <% } %>
+    <div class="logro-card <%= l.obtenido ? 'obtenido' : 'bloqueado' %>">
+      <div class="logro-icon-wrap">
+        <% if (l.obtenido) { %>&#127942;<% } else { %>&#128274;<% } %>
       </div>
       <div class="logro-info">
         <h3><%= l.nombre %></h3>
         <p><%= l.descripcion %></p>
         <% if (l.obtenido) { %>
           <span class="badge badge-success">
-            Obtenido <%= new Date(l.fecha_obtencion).toLocaleDateString('es-DO') %>
+            <i class="ti ti-check"></i>
+            <%= new Date(l.fecha_obtencion).toLocaleDateString('es-DO', { day:'numeric', month:'short', year:'numeric' }) %>
           </span>
         <% } else { %>
           <span class="badge badge-pending">Bloqueado</span>
@@ -27,3 +30,4 @@
     </div>
   <% }) %>
 </div>
+<%- include('../partials/footer') %>

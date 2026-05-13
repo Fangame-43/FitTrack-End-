@@ -12,6 +12,6 @@ exports.index = async (req, res, next) => {
       fecha_obtencion: obtenidosMap.get(l.id) || null,
     }));
 
-    res.render('logros/index', { usuario: req.usuario, logros });
+    res.render('logros/index', { usuario: req.usuario, logros, page: 'logros' });
   } catch (err) { next(err); }
 };

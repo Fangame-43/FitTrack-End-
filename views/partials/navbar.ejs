@@ -1,10 +1,25 @@
 <nav class="navbar">
-    <a href="/dashboard" class="brand">FitTrack</a>
-    <div class="nav-links">
-        <a href="/actividades">Actividades</a>
-        <a href="/metas">Metas</a>
-        <a href="/logros">Logros</a>
-        <a href="/ranking">Ranking</a>
-        <a href="/auth/logout">Cerrar sesión</a>
-    </div>
+    <a href="/dashboard" class="navbar-brand">
+        <img src="/logo.png" alt="FitTrack" class="navbar-logo">
+    </a>
+    <ul class="navbar-links">
+        <li><a href="/dashboard"
+                class="nav-link <%= typeof page !== 'undefined' && page === 'dashboard'   ? 'active' : '' %>">Inicio</a>
+        </li>
+        <li><a href="/actividades"
+                class="nav-link <%= typeof page !== 'undefined' && page === 'actividades' ? 'active' : '' %>">Actividades</a>
+        </li>
+        <li><a href="/metas"
+                class="nav-link <%= typeof page !== 'undefined' && page === 'metas'       ? 'active' : '' %>">Metas</a>
+        </li>
+        <li><a href="/logros"
+                class="nav-link <%= typeof page !== 'undefined' && page === 'logros'      ? 'active' : '' %>">Logros</a>
+        </li>
+        <li><a href="/ranking"
+                class="nav-link <%= typeof page !== 'undefined' && page === 'ranking'     ? 'active' : '' %>">Ranking</a>
+        </li>
+    </ul>
+    <a href="/auth/logout" class="nav-logout">
+        <i class="ti ti-logout"></i> Salir
+    </a>
 </nav>

@@ -1,46 +1,71 @@
+<%- include('../partials/header') %>
 <div class="page-header">
-    <h2>Mis actividades</h2>
-    <a href="/actividades/nueva" class="btn">+ Nueva</a>
+    <div>
+        <h2>Actividades</h2>
+        <p>Historial de tus entrenamientos</p>
+    </div>
+    <a href="/actividades/nueva" class="btn btn-red"><i class="ti ti-plus"></i> Nueva</a>
 </div>
 
-<% if (actividades.length===0) { %>
-    <p>Aún no tienes actividades registradas.</p>
-    <% } else { %>
-        <table class="tabla">
-            <thead>
-                <tr>
-                    <th>Fecha</th>
-                    <th>Tipo</th>
-                    <th>Duración</th>
-                    <th>Distancia</th>
-                    <th>Calorías</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <% actividades.forEach(a=> { %>
-                    <tr>
-                        <td>
-                            <%= a.fecha %>
-                        </td>
-                        <td>
-                            <%= a.tipo %>
-                        </td>
-                        <td>
-                            <%= a.duracion_min %> min
-                        </td>
-                        <td>
-                            <%= a.distancia_km ? a.distancia_km + ' km' : '—' %>
-                        </td>
-                        <td>
-                            <%= a.calorias || '—' %>
-                        </td>
-                        <td>
-                            <a href="/actividades/<%= a.id %>">Ver</a>
-                            <a href="/actividades/<%= a.id %>/editar">Editar</a>
-                        </td>
-                    </tr>
-                    <% }) %>
-            </tbody>
-        </table>
-        <% } %>
+<% const iconos = { correr:'ti-run', ciclismo:'ti-bike', natacion:'ti-swimming', caminata:'ti-walk', gimnasio:'ti-barbell', otro:'ti-activity' }; %>
+
+<% if (actividades.length === 0) { %>
+    <div class="empty-state">
+        <i class="ti ti-run"></i>
+        <p>Aún no tienes actividades registradas.</p>
+        <a href="/actividades/nueva" class="btn btn-red">Registrar primera actividad</a>
+    </div>
+<% } else { %>
+    <div class="actividades-list">
+        <% actividades.forEach(a => { %>
+            <div class="actividad-card">
+                <div class="actividad-icon icon-<%= a.tipo %>">
+                    <i class="ti <%= iconos[a.tipo] || 'ti-activity' %>"></i>
+                </div>
+                <div class="actividad-info">
+                    <div class="actividad-tipo"><%= a.tipo %></div>
+                    <div class="actividad-meta">
+                        <span><i class="ti ti-calendar"></i> <%= a.fecha %></span>
+                        <% if (a.notas) { %>
+                            <span><%= a.notas.substring(0, 40) %><%= a.notas.length > 40 ? '...' : '' %></span>
+                        <% } %>
+                    </div>
+                </div>
+                <div class="actividad-stats">
+                    <div class="actividad-stat">
+                        <strong><%= a.duracion_min %> min</strong>
+                        <span style="font-size:.78rem;color:var(--gray-500)">duración</span>
+                    </div>
+                    <% if (a.distancia_km) { %>
+                        <div class="actividad-stat">
+                            <strong><%= a.distancia_km %> km</strong>
+                            <span style="font-size:.78rem;color:var(--gray-500)">distancia</span>
+                        </div>
+                    <% } %>
+                    <% if (a.calorias) { %>
+                        <div class="actividad-stat">
+                            <strong><%= a.calorias %></strong>
+                            <span style="font-size:.78rem;color:var(--gray-500)">kcal</span>
+                        </div>
+                    <% } %>
+                </div>
+                <div class="actividad-actions">
+                    <a href="/actividades/<%= a.id %>" class="action-btn" title="Ver"><i class="ti ti-eye"></i></a>
+                    <a href="/actividades/<%= a.id %>/editar" class="action-btn" title="Editar"><i class="ti ti-pencil"></i></a>
+                    <form action="/actividades/<%= a.id %>/eliminar" method="POST" style="display:inline">
+                        <button type="submit" class="action-btn danger" title="Eliminar" onclick="return confirm('¿Eliminar?')"><i class="ti ti-trash"></i></button>
+                    </form>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+<% } %>
+
+<div class="strava-section">
+    <h3><i class="ti ti-brand-strava" style="color:#FC4C02"></i> Strava</h3>
+    <a href="/actividades/strava/conectar" class="btn btn-strava">Conectar cuenta</a>
+    <form action="/actividades/strava/importar" method="POST">
+        <button type="submit" class="btn btn-outline">Importar actividades</button>
+    </form>
+</div>
+<%- include('../partials/footer') %>

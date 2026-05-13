@@ -1,26 +1,16 @@
+<%- include('../partials/header') %>
 <h2>Detalle de actividad</h2>
 <div class="card">
-    <p><strong>Tipo:</strong>
-        <%= actividad.tipo %>
-    </p>
-    <p><strong>Fecha:</strong>
-        <%= actividad.fecha %>
-    </p>
-    <p><strong>Duración:</strong>
-        <%= actividad.duracion_min %> min
-    </p>
-    <p><strong>Distancia:</strong>
-        <%= actividad.distancia_km ? actividad.distancia_km + ' km' : '—' %>
-    </p>
-    <p><strong>Calorías:</strong>
-        <%= actividad.calorias || '—' %>
-    </p>
-    <p><strong>Notas:</strong>
-        <%= actividad.notas || '—' %>
-    </p>
+    <p><strong>Tipo:</strong> <%= actividad.tipo %></p>
+    <p><strong>Fecha:</strong> <%= actividad.fecha %></p>
+    <p><strong>Duración:</strong> <%= actividad.duracion_min %> min</p>
+    <p><strong>Distancia:</strong> <%= actividad.distancia_km ? actividad.distancia_km + ' km' : '-' %></p>
+    <p><strong>Calorías:</strong> <%= actividad.calorias || '-' %></p>
+    <p><strong>Notas:</strong> <%= actividad.notas || '-' %></p>
 </div>
 <a href="/actividades/<%= actividad.id %>/editar" class="btn">Editar</a>
 <form action="/actividades/<%= actividad.id %>/eliminar" method="POST" style="display:inline">
     <button type="submit" onclick="return confirm('¿Eliminar esta actividad?')">Eliminar</button>
 </form>
 <a href="/actividades">Volver</a>
+<%- include('../partials/footer') %>

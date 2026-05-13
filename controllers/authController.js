@@ -2,9 +2,9 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { Usuario } = require('../models');
 
-exports.mostrarLogin = (req, res) => res.render('auth/login');
+exports.mostrarLogin = (req, res) => res.render('auth/login', { page: 'auth' });
 
-exports.mostrarRegistro = (req, res) => res.render('auth/registro');
+exports.mostrarRegistro = (req, res) => res.render('auth/registro', { page: 'auth' });
 
 exports.registro = async (req, res) => {
     try {

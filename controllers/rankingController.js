@@ -22,6 +22,6 @@ exports.index = async (req, res, next) => {
       limit:  20,
     });
 
-    res.render('ranking/index', { usuario: req.usuario, ranking });
+    res.render('ranking/index', { usuario: req.usuario, ranking, page: 'ranking' });
   } catch (err) { next(err); }
 };

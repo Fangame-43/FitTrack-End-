@@ -1,39 +1,57 @@
+<%- include('../partials/header') %>
 <div class="page-header">
-    <h2>Mis metas</h2>
-    <a href="/metas/nueva" class="btn">+ Nueva meta</a>
+    <div>
+        <h2>Metas</h2>
+        <p>Define tus objetivos y trabaja para lograrlos.</p>
+    </div>
+    <a href="/metas/nueva" class="btn btn-red"><i class="ti ti-plus"></i> Nueva meta</a>
 </div>
 
-<% if (metas.length===0) { %>
-    <p>Aún no tienes metas. <a href="/metas/nueva">Crea una</a></p>
-    <% } else { %>
-        <div class="metas-grid">
-            <% metas.forEach(m=> { %>
-                <% const porcentaje=Math.min(Math.round((m.valor_actual / m.valor_esperado) * 100), 100); %>
-                    <div class="card">
-                        <div class="meta-header">
-                            <h3>
-                                <%= m.tipo.replace('_', ' ' ) %>
-                            </h3>
-                            <span class="badge <%= porcentaje >= 100 ? 'badge-success' : 'badge-pending' %>">
-                                <%= porcentaje>= 100 ? 'Completada' : 'En progreso' %>
-                            </span>
-                        </div>
-                        <p class="meta-fechas">
-                            <%= m.fecha_inicio %> → <%= m.fecha_fin %>
-                        </p>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: <%= porcentaje %>%"></div>
-                        </div>
-                        <p class="meta-valores">
-                            <%= m.valor_actual %> / <%= m.valor_esperado %> (<%= porcentaje %>%)
-                        </p>
-                        <div class="meta-actions">
-                            <a href="/metas/<%= m.id %>/editar">Editar</a>
-                            <form action="/metas/<%= m.id %>/eliminar" method="POST" style="display:inline">
-                                <button type="submit" onclick="return confirm('¿Eliminar esta meta?')">Eliminar</button>
-                            </form>
-                        </div>
+<% const colores=['green','yellow','blue','red']; %>
+<% const iconosMeta={ distancia_total:'ti-run', calorias_totales:'ti-flame', sesiones:'ti-calendar-stats', tiempo_total:'ti-clock', peso:'ti-scale' }; %>
+<% const coloresTipo={ distancia_total:'icon-correr', calorias_totales:'icon-gimnasio', sesiones:'icon-caminata', tiempo_total:'icon-ciclismo', peso:'icon-natacion' }; %>
+
+<% if (metas.length === 0) { %>
+    <div class="empty-state">
+        <i class="ti ti-flag"></i>
+        <p>Aún no tienes metas. Crea una para empezar.</p>
+        <a href="/metas/nueva" class="btn btn-red">Crear primera meta</a>
+    </div>
+<% } else { %>
+    <div class="metas-grid">
+        <% metas.forEach((m, i) => { %>
+            <% const pct = Math.min(Math.round((m.valor_actual / m.valor_esperado) * 100), 100); %>
+            <% const color = colores[i % colores.length]; %>
+            <div class="meta-card">
+                <div class="meta-icon <%= coloresTipo[m.tipo] || '' %>">
+                    <i class="ti <%= iconosMeta[m.tipo] || 'ti-target' %>"></i>
+                </div>
+                <div class="meta-body">
+                    <div class="meta-nombre"><%= m.tipo.replace(/_/g, ' ') %></div>
+                    <div class="meta-tipo-badge" style="color:<%= color === 'green' ? 'var(--green)' : color === 'yellow' ? 'var(--yellow)' : color === 'blue' ? 'var(--blue)' : 'var(--red)' %>">
+                        <%= pct >= 100 ? 'Completada' : 'En progreso' %>
                     </div>
-                    <% }) %>
-        </div>
-        <% } %>
+                    <div class="progress-bar">
+                        <div class="progress-fill <%= color %>" style="width:<%= pct %>%"></div>
+                    </div>
+                    <div class="progress-label">
+                        <span><%= m.valor_actual %> de <%= m.valor_esperado %></span>
+                        <span class="progress-pct" style="color:<%= color === 'green' ? 'var(--green)' : color === 'yellow' ? 'var(--yellow)' : color === 'blue' ? 'var(--blue)' : 'var(--red)' %>">
+                            <%= pct %>%
+                        </span>
+                    </div>
+                </div>
+                <div class="meta-side">
+                    <div class="meta-freq"><i class="ti ti-calendar"></i> <%= m.fecha_fin %></div>
+                    <div class="meta-actions">
+                        <a href="/metas/<%= m.id %>/editar" class="action-btn"><i class="ti ti-pencil"></i></a>
+                        <form action="/metas/<%= m.id %>/eliminar" method="POST" style="display:inline">
+                            <button type="submit" class="action-btn danger" onclick="return confirm('¿Eliminar meta?')"><i class="ti ti-trash"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+<% } %>
+<%- include('../partials/footer') %>

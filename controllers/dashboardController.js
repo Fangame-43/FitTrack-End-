@@ -12,7 +12,7 @@ exports.index = async (req, res, next) => {
                 where: { usuario_id: req.usuario.id },
             }),
         ]);
-        res.render('dashboard/index', { usuario: req.usuario, actividades, metas });
+        res.render('dashboard/index', { usuario: req.usuario, actividades, metas, page: 'dashboard' });
     } catch (err) {
         next(err);
     }

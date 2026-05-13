@@ -6,12 +6,12 @@ exports.index = async (req, res, next) => {
             where: { usuario_id: req.usuario.id },
             order: [['fecha_inicio', 'DESC']],
         });
-        res.render('metas/index', { usuario: req.usuario, metas });
+        res.render('metas/index', { usuario: req.usuario, metas, page: 'metas' });
     } catch (err) { next(err); }
 };
 
 exports.nueva = (req, res) =>
-    res.render('metas/nueva', { usuario: req.usuario });
+    res.render('metas/nueva', { usuario: req.usuario, page: 'metas' });
 
 exports.crear = async (req, res, next) => {
     try {
@@ -30,7 +30,7 @@ exports.editar = async (req, res, next) => {
     try {
         const meta = await Meta.findOne({ where: { id: req.params.id, usuario_id: req.usuario.id } });
         if (!meta) return res.redirect('/metas');
-        res.render('metas/editar', { usuario: req.usuario, meta });
+        res.render('metas/editar', { usuario: req.usuario, meta, page: 'metas' });
     } catch (err) { next(err); }
 };
 
