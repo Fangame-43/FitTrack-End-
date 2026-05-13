@@ -1,0 +1,34 @@
+<h2>Editar actividad</h2>
+<form action="/actividades/<%= actividad.id %>/editar" method="POST">
+    <div class="form-group">
+        <label>Tipo</label>
+        <select name="tipo" required>
+            <% ['correr','ciclismo','natacion','caminata','gimnasio','otro'].forEach(t=> { %>
+                <option value="<%= t %>" <%=actividad.tipo===t ? 'selected' : '' %>><%= t %>
+                </option>
+                <% }) %>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Fecha</label>
+        <input type="date" name="fecha" value="<%= actividad.fecha %>" required>
+    </div>
+    <div class="form-group">
+        <label>Duración (minutos)</label>
+        <input type="number" name="duracion_min" value="<%= actividad.duracion_min %>" min="1" required>
+    </div>
+    <div class="form-group">
+        <label>Distancia (km)</label>
+        <input type="number" name="distancia_km" value="<%= actividad.distancia_km || '' %>" step="0.01" min="0">
+    </div>
+    <div class="form-group">
+        <label>Calorías</label>
+        <input type="number" name="calorias" value="<%= actividad.calorias || '' %>" min="0">
+    </div>
+    <div class="form-group">
+        <label>Notas</label>
+        <textarea name="notas" rows="3"><%= actividad.notas || '' %></textarea>
+    </div>
+    <button type="submit">Actualizar</button>
+    <a href="/actividades">Cancelar</a>
+</form>

@@ -4,5 +4,6 @@ const dashCtrl  = require('../controllers/dashboardController');
 
 router.use('/auth', require('./auth'));
 router.get('/dashboard', auth, dashCtrl.index);
+router.use('/actividades', require('./actividades'));
 
 module.exports = router;

@@ -1,0 +1,46 @@
+<div class="page-header">
+    <h2>Mis actividades</h2>
+    <a href="/actividades/nueva" class="btn">+ Nueva</a>
+</div>
+
+<% if (actividades.length===0) { %>
+    <p>Aún no tienes actividades registradas.</p>
+    <% } else { %>
+        <table class="tabla">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Tipo</th>
+                    <th>Duración</th>
+                    <th>Distancia</th>
+                    <th>Calorías</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% actividades.forEach(a=> { %>
+                    <tr>
+                        <td>
+                            <%= a.fecha %>
+                        </td>
+                        <td>
+                            <%= a.tipo %>
+                        </td>
+                        <td>
+                            <%= a.duracion_min %> min
+                        </td>
+                        <td>
+                            <%= a.distancia_km ? a.distancia_km + ' km' : '—' %>
+                        </td>
+                        <td>
+                            <%= a.calorias || '—' %>
+                        </td>
+                        <td>
+                            <a href="/actividades/<%= a.id %>">Ver</a>
+                            <a href="/actividades/<%= a.id %>/editar">Editar</a>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+        <% } %>
