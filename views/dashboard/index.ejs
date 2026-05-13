@@ -1,0 +1,36 @@
+<h2>Bienvenido, <%= usuario.nombre %>
+</h2>
+<div class="dashboard-grid">
+    <div class="card">
+        <h3>Actividades recientes</h3>
+        <% if (actividades.length===0) { %>
+            <p>Aún no tienes actividades. <a href="/actividades/nueva">Registra una</a></p>
+            <% } else { %>
+                <ul>
+                    <% actividades.forEach(a=> { %>
+                        <li>
+                            <%= a.tipo %> — <%= a.duracion_min %> min — <%= a.fecha %>
+                        </li>
+                        <% }) %>
+                </ul>
+                <% } %>
+    </div>
+    <div class="card">
+        <h3>Metas activas</h3>
+        <% if (metas.length===0) { %>
+            <p>Sin metas. <a href="/metas/nueva">Crea una</a></p>
+            <% } else { %>
+                <% metas.forEach(m=> { %>
+                    <div class="meta-item">
+                        <span>
+                            <%= m.tipo %>
+                        </span>
+                        <progress value="<%= m.valor_actual %>" max="<%= m.valor_esperado %>"></progress>
+                        <span>
+                            <%= m.valor_actual %> / <%= m.valor_esperado %>
+                        </span>
+                    </div>
+                    <% }) %>
+                        <% } %>
+    </div>
+</div>

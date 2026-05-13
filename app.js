@@ -26,6 +26,9 @@ app.get('/', (req, res) => res.redirect('/dashboard'));
 
 const PORT = process.env.PORT || 3000;
 
+app.use('/', require('./routes'));
+app.use(require('./middlewares/errorHandler'));
+
 sequelize.authenticate()
     .then(() => {
         console.log('Conectado a la base de datos');
