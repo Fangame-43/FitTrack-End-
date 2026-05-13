@@ -1,0 +1,39 @@
+<div class="page-header">
+    <h2>Mis metas</h2>
+    <a href="/metas/nueva" class="btn">+ Nueva meta</a>
+</div>
+
+<% if (metas.length===0) { %>
+    <p>Aún no tienes metas. <a href="/metas/nueva">Crea una</a></p>
+    <% } else { %>
+        <div class="metas-grid">
+            <% metas.forEach(m=> { %>
+                <% const porcentaje=Math.min(Math.round((m.valor_actual / m.valor_esperado) * 100), 100); %>
+                    <div class="card">
+                        <div class="meta-header">
+                            <h3>
+                                <%= m.tipo.replace('_', ' ' ) %>
+                            </h3>
+                            <span class="badge <%= porcentaje >= 100 ? 'badge-success' : 'badge-pending' %>">
+                                <%= porcentaje>= 100 ? 'Completada' : 'En progreso' %>
+                            </span>
+                        </div>
+                        <p class="meta-fechas">
+                            <%= m.fecha_inicio %> → <%= m.fecha_fin %>
+                        </p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: <%= porcentaje %>%"></div>
+                        </div>
+                        <p class="meta-valores">
+                            <%= m.valor_actual %> / <%= m.valor_esperado %> (<%= porcentaje %>%)
+                        </p>
+                        <div class="meta-actions">
+                            <a href="/metas/<%= m.id %>/editar">Editar</a>
+                            <form action="/metas/<%= m.id %>/eliminar" method="POST" style="display:inline">
+                                <button type="submit" onclick="return confirm('¿Eliminar esta meta?')">Eliminar</button>
+                            </form>
+                        </div>
+                    </div>
+                    <% }) %>
+        </div>
+        <% } %>

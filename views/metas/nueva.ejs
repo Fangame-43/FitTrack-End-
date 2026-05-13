@@ -1,0 +1,27 @@
+<h2>Nueva meta</h2>
+<form action="/metas" method="POST">
+    <div class="form-group">
+        <label>Tipo de meta</label>
+        <select name="tipo" required>
+            <option value="distancia_total">Distancia total (km)</option>
+            <option value="calorias_totales">Calorías totales</option>
+            <option value="sesiones">Número de sesiones</option>
+            <option value="tiempo_total">Tiempo total (minutos)</option>
+            <option value="peso">Peso objetivo (kg)</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Valor objetivo</label>
+        <input type="number" name="valor_esperado" step="0.01" min="0.01" required>
+    </div>
+    <div class="form-group">
+        <label>Fecha de inicio</label>
+        <input type="date" name="fecha_inicio" required>
+    </div>
+    <div class="form-group">
+        <label>Fecha de fin</label>
+        <input type="date" name="fecha_fin" required>
+    </div>
+    <button type="submit">Crear meta</button>
+    <a href="/metas">Cancelar</a>
+</form>
