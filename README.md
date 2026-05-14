@@ -45,7 +45,7 @@ Antes de ejecutar el proyecto, asegúrate de tener instalado:
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/tu-usuario/fittrack.git
+git clone https://github.com/Fangame-43/FitTrack-End-.git
 cd fittrack
 ```
 
